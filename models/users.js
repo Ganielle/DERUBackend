@@ -27,6 +27,9 @@ const usersModels = new mongoose.Schema(
             trim: true,
             minlength: 5,
         },
+        approve: {
+            type: Boolean
+        },
         token: {
             type: String,
         },

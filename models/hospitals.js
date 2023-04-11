@@ -2,6 +2,10 @@ const mongoose = require("mongoose")
 
 const hospitalModels = mongoose.Schema(
     {
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Users"
+        },
         display_name:{
             type: String,
             required: true
@@ -25,6 +29,9 @@ const hospitalModels = mongoose.Schema(
         covidBeds:{
             type: Number,
             required: true
+        },
+        approve: {
+            type: Boolean
         },
         variance:[{
             type: mongoose.Schema.Types.ObjectId,
