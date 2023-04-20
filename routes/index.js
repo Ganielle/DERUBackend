@@ -6,6 +6,7 @@ const routers = app => {
      app.use("/roles", require("./roles"))
      app.use("/variance", require("./hospitalVariance"))
      app.use("/hospitals", require("./hospitals"))
+     app.use("/users", require("./users"))
 }
 
 module.exports = routers

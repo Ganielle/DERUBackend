@@ -15,14 +15,19 @@ exports.login = (req, res) => {
     Users.findOne({ $or: [{ email }, {username: email }] })
     .then(async user => {
         if (user && (await user.matchPassword(password))){
-            let userData = await Users.findById({ _id: user._id })
-            .select("-password")
-            .populate({
-                path: "roleId",
-                select: "display_name name"
-            })
-            userData.token = generateToken(userData._id);
-            res.json({ message: "success", data: userData })
+            if (!user.approve){
+                res.json({ message: "failed", error: "Your account is not yet approved! Please wait for 2 - 3 business days." })
+            }
+            else{
+                let userData = await Users.findById({ _id: user._id })
+                .select("-password")
+                .populate({
+                    path: "roleId",
+                    select: "display_name name"
+                })
+                userData.token = generateToken(userData._id);
+                res.json({ message: "success", data: userData })
+            }
         }
         else{
             res.json({ message: "failed", error: "E-mail/Username and password does not match" })
