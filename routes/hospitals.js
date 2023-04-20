@@ -3,7 +3,7 @@ const { browse, find, save, countHospitals, findPagination } = require("../contr
 
 router
     .get("/browse", browse)
-    .get("/:name/find", find)
+    .get("/:userId/find", find)
     .get("/counthospital", countHospitals)
     .get("/listhospital", findPagination)
     .post("/save", save)

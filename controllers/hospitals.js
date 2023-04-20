@@ -8,7 +8,7 @@ exports.browse = (req, res) =>
 
 //  entity/:name/find
 exports.find = (req, res) =>
-    Hospital.findOne({ display_name: req.params.name })
+    Hospital.findOne({ userId: req.params.userId })
     .then(items => res.json(items))
     .catch(error => res.status(400).json({error: error.message}));
 
