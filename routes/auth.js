@@ -1,8 +1,9 @@
 const router = require("express").Router(),
-    { login, save } = require("../controllers/auth")
+    { login, save, createuser } = require("../controllers/auth")
 
 router 
-    .get("/login", login)
+    .post("/login", login)
     .post("/save", save)
+    .post("/createuser", createuser)
 
 module.exports = router

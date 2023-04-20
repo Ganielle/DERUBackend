@@ -27,6 +27,17 @@ const usersModels = new mongoose.Schema(
             trim: true,
             minlength: 5,
         },
+        fname: {
+            type: String,
+            required: true
+        },
+        mname:{
+            type: String
+        },
+        lname:{
+            type: String,
+            required: true
+        },
         approve: {
             type: Boolean
         },
