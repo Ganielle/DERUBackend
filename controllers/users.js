@@ -1,4 +1,5 @@
 const Users = require("../models/users")
+const Hospital = require("../models/hospitals")
 
 exports.countUsers = (req, res) => {
     Users.count()
@@ -22,6 +23,23 @@ exports.userlist = (req, res) => {
             res.json({ message: "success",
             userData: user, pages: totalPages})
         })
+    })
+    .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
+}
+
+exports.approveUser = (req, res) => {
+    Users.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(data => res.json({message: "success"})
+    )
+    .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
+}
+
+exports.declineUser = (req, res) => {
+    Users.findByIdAndDelete(req.params.id)
+    .then(user => {
+        Hospital.findOneAndDelete({userId: user._id})
+        .then(data => res.json({message: "success"}))
+        .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
     })
     .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
 }

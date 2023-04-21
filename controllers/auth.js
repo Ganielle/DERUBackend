@@ -38,8 +38,8 @@ exports.login = (req, res) => {
 
 exports.save = (req, res) =>
   Users.create(req.body)
-    .then(user => res.json(`${user._id} saved successfully`))
-    .catch(error => res.status(400).json({ error: error.message }));
+    .then(user => res.json({ message: "success"}))
+    .catch(error => res.status(400).json({ message: "bad-request"}));
 
 exports.createuser = (req, res) =>{
     Users.create({

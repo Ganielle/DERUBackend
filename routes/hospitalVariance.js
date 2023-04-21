@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const { browse, find, save, findPagination, update } = require("../controllers/hospitalVariance")
+const { browse, find, save, findPagination, update, deletevariant } = require("../controllers/hospitalVariance")
 
 router
     .get("/browse", browse)
@@ -7,5 +7,6 @@ router
     .post("/save", save)
     .get("/variantlist", findPagination)
     .put("/:id/update", update)
+    .delete("/:id/delete", deletevariant)
 
 module.exports = router

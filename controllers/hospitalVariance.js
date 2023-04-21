@@ -42,3 +42,9 @@ exports.update = (req, res) => {
     .then(data => res.json({ message: "success"}))
     .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
 }
+
+exports.deletevariant = (req, res) =>{
+    Variance.findByIdAndDelete(req.params.id)
+    .then(data => res.json({message:"success"}))
+    .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
+}
