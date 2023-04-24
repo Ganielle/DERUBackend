@@ -7,6 +7,7 @@ const routers = app => {
      app.use("/variance", require("./hospitalVariance"))
      app.use("/hospitals", require("./hospitals"))
      app.use("/users", require("./users"))
+     app.use("/pcr", require("./pcr"))
 }
 
 module.exports = routers
