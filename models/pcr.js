@@ -381,6 +381,9 @@ const pcrModels = mongoose.Schema(
             ref: "Hospital",
             required: false
         }
+    },
+    {
+        timestamps: true
     }
 )
 

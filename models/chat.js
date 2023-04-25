@@ -2,25 +2,17 @@ const mongoose = require("mongoose")
 
 const chatModels = mongoose.Schema(
     {
-        chatroom_name:{
-            type: String,
-            required: true
-        },
-        handler:{
+        chatroom_id:{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Users"
-        },
-        patient:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Users"
-        },
-        closed:{
-            type: Boolean
+            ref: "Room"
         },
         history:[{
             sender: { "type": String, "required": true },
             content: { "type": String, "required": true }
         }]
+    },
+    {
+        timestamps: true
     }
 )
 

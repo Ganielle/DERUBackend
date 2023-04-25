@@ -37,6 +37,9 @@ const hospitalModels = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "Variance"
         }]
+    },
+    {
+        timestamps: true
     }
 )
 

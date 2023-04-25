@@ -53,3 +53,9 @@ exports.save = (req, res) =>{
     } )
     .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
 }
+
+exports.update = (req, res) =>{
+    PCR.findByIdAndUpdate(req.params.id, req.body.data, { new: true })
+    .then(data => res.json({ message: "success"}))
+    .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
+}
