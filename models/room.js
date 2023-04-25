@@ -8,11 +8,11 @@ const roomModels = mongoose.Schema(
         },
         handler:{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Users"
+            ref: "Users",
+            required: false
         },
         nameOfPatient:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Users"
+            type: String
         },
         contactNumber:{
             type: String

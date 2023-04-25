@@ -1,4 +1,5 @@
 const Room = require("../models/room")
+const Chat = require("../models/chat")
 
 exports.browse = (req, res) =>{
     const pageOptions = {
@@ -9,6 +10,10 @@ exports.browse = (req, res) =>{
     .skip(pageOptions.page * pageOptions.limit)
     .limit(pageOptions.limit)
     .sort({'createdAt': -1})
+    .populate({
+        path: "handler",
+        select: "username"
+    })
     .then(user => {
         Room.countDocuments()
         .then(count => {
@@ -21,7 +26,15 @@ exports.browse = (req, res) =>{
 }
 
 exports.save = (req, res) => {
-    Room.create(req.body)
-    .then(content => res.json({ message: "success", data: content}))
-    .catch(error => res.status(400).json({ message: "bad-request"}))
+    Room.create(req.body.data)
+    .then(content => {
+        Chat.create({chatroom_id: content._id})
+        .then(responseData => res.json({ message: "success", data: content}))
+    })
+    .catch(error => res.status(400).json({ message: "bad-request", content: error}))
 }
+
+exports.update = (req, res) =>
+    Room.findByIdAndUpdate(req.params.id, req.body)
+    .then(item => res.json({ message: "success" }))
+    .catch(error => res.status(400).json({ error: error.message }));

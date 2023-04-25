@@ -8,6 +8,8 @@ const routers = app => {
      app.use("/hospitals", require("./hospitals"))
      app.use("/users", require("./users"))
      app.use("/pcr", require("./pcr"))
+     app.use("/room", require("./room"))
+     app.use("/chat", require("./chat"))
 }
 
 module.exports = routers
