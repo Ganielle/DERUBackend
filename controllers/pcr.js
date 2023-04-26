@@ -1,5 +1,11 @@
 const PCR = require("../models/pcr")
 
+exports.countPCR = (req, res) => {
+    PCR.count()
+    .then(user => res.json({ message: "success", data: user}))
+    .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
+}
+
 exports.browse = (req, res) =>{
     const pageOptions = {
         page: parseInt(req.query.page) || 0,

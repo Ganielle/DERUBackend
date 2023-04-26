@@ -32,7 +32,8 @@ const socket = io => {
         })
 
         socketio.on("send-message", async (data) => {
-            io.to(data.roomId).emit("receive-message", {
+            
+            socketio.broadcast.emit("receive-message", {
                 message: "success", data: data.content
             })
         })
