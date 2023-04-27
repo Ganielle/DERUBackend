@@ -18,6 +18,13 @@ const socket = io => {
             })
         })
 
+        socketio.on("leave-room", (data) => {
+            socketio.leave(data.roomId)
+            socketio.emit("leave-room-response", {
+                message: "success"
+            })
+        })
+
         //  PATIENT CREATED ROOM
         socketio.on("create-room", async (data) => {
             //  SERVER SEND TO HIGHER ACCOUNT DASHBOARD LIST
