@@ -1,4 +1,5 @@
 const PCR = require("../models/pcr")
+const Hospital = require("../models/hospitals")
 
 exports.countPCR = (req, res) => {
     PCR.count()
@@ -25,6 +26,33 @@ exports.browse = (req, res) =>{
         .then(count => {
             const totalPages = Math.ceil(count / 10);
             res.json({ message: "success", data: pcr, pages: totalPages})
+        })
+        .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
+    })
+    .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
+}
+
+exports.selfPCR = (req, res) => {
+    const pageOptions = {
+        page: parseInt(req.query.page) || 0,
+        limit: parseInt(req.query.limit) || 10
+    }
+
+    var ObjectId = require('mongodb').ObjectId; 
+    var objId = new ObjectId(req.params.id)
+    Hospital.find({userId: objId})
+    .skip(pageOptions.page * pageOptions.limit)
+    .limit(pageOptions.limit)
+    .sort({'createdAt': -1})
+    .then(hospitalData => {
+        console.log(hospitalData)
+        PCR.find({hospital: new ObjectId(hospitalData._id)})
+        .then(pcrData => {
+            PCR.countDocuments({hospital: new ObjectId(hospitalData._id)})
+            .then(count => {
+                const totalPages = Math.ceil(count / 10);
+                res.json({ message: "success", data: pcrData, pages: totalPages})
+            })
         })
         .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
     })
