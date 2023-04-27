@@ -16,6 +16,6 @@
     "start": "nodemon app.js"
   },
   "engines": {
-    "node": "18.15.0 <= 14.20.1"
+    "node": ">=14.20.1"
   }
 }
