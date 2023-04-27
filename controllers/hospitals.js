@@ -9,6 +9,14 @@ exports.browse = (req, res) =>
 //  entity/:name/find
 exports.find = (req, res) =>
     Hospital.findOne({ userId: req.params.userId })
+    .populate({
+        path: "userId",
+        select: "username email fname mname lname approve"
+    })
+    .populate({
+        path: "variance",
+        select: "display_name"
+    })
     .then(items => res.json(items))
     .catch(error => res.status(400).json({error: error.message}));
 
@@ -29,6 +37,11 @@ exports.approvehospital = (req, res) => {
     .then(data => res.json({message: "success"}))
     .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
 }
+
+exports.update = (req, res) =>
+Hospital.findByIdAndUpdate(req.params.id, req.body.data)
+    .then(item => res.json({message: "success"}))
+    .catch(error => res.status(400).json({ error: error.message }));
 
 exports.findPagination = (req, res) =>{
     const pageOptions = {

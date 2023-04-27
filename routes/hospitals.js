@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const { browse, find, save, countHospitals, findPagination, approvehospital,
-    listapprove } = require("../controllers/hospitals")
+    listapprove, update } = require("../controllers/hospitals")
 
 router
     .get("/browse", browse)
@@ -10,5 +10,6 @@ router
     .put("/:id/approve", approvehospital)
     .post("/save", save)
     .get("/listapprove", listapprove)
+    .put("/:id/update", update)
 
 module.exports = router

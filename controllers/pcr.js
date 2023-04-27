@@ -45,10 +45,13 @@ exports.selfPCR = (req, res) => {
     .limit(pageOptions.limit)
     .sort({'createdAt': -1})
     .then(hospitalData => {
-        console.log(hospitalData)
-        PCR.find({hospital: new ObjectId(hospitalData._id)})
+        PCR.find({hospital: hospitalData[0]._id})
+        .populate({
+            path: "hospital",
+            select: "display_name"
+        })
         .then(pcrData => {
-            PCR.countDocuments({hospital: new ObjectId(hospitalData._id)})
+            PCR.countDocuments({hospital: hospitalData[0]._id})
             .then(count => {
                 const totalPages = Math.ceil(count / 10);
                 res.json({ message: "success", data: pcrData, pages: totalPages})
