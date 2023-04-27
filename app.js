@@ -10,7 +10,8 @@ require('dotenv').config()
 const app = express()
 
 const corsConfig = {
-    origin: ["http://localhost:3000", "http://localhost:8080/", "http://localhost:8080"],
+    // origin: ["http://localhost:3000", "http://localhost:8080/", "http://localhost:8080"],
+    origin: ["https://deru.onrender.com/", "https://deru.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE"], // List only` available methods
     credentials: true, // Must be set to true
     allowedHeaders: [
