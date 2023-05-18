@@ -7,6 +7,20 @@ exports.countPCR = (req, res) => {
     .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
 }
 
+exports.countReferral = (req, res) => {
+    PCR.find({withReferral: req.query.withReferral })
+    .count()
+    .then(user => res.json({ message: "success", data: user}))
+    .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
+}
+
+exports.countLostConsciousness = (req, res) => {
+    PCR.find({lostOfConsciousness: req.query.lostOfConsciousness })
+    .count()
+    .then(user => res.json({ message: "success", data: user}))
+    .catch(error => res.status(400).json({message:"bad-request", error: error.message }))
+}
+
 exports.browse = (req, res) =>{
     const pageOptions = {
         page: parseInt(req.query.page) || 0,
