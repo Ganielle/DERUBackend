@@ -18,6 +18,9 @@ exports.login = (req, res) => {
             if (!user.approve){
                 res.json({ message: "failed", error: "Your account is not yet approved! Please wait for 2 - 3 business days." })
             }
+            else if (!user.active){
+                res.json({ message: "failed", error: "Your account has been banned! Please contact customer support." })
+            }
             else{
                 let userData = await Users.findById({ _id: user._id })
                 .select("-password")

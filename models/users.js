@@ -41,6 +41,9 @@ const usersModels = new mongoose.Schema(
         approve: {
             type: Boolean
         },
+        active: {
+            type: Boolean
+        },
         token: {
             type: String,
         },
